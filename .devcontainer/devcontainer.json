@@ -1,12 +1,24 @@
 {
   "name": "Karate (Java 17 + Maven)",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
-  "features": {
-    "ghcr.io/devcontainers/features/java:1": { "version": "17" },
-    "ghcr.io/devcontainers/features/maven:1": { "version": "latest" }
+  "image": "mcr.microsoft.com/devcontainers/java:17-bullseye",
+
+  // Ask Codespaces for a 16-core machine by default.
+  // If the plan/region can't provide it, GitHub will pick the nearest larger/smaller that satisfies at least these mins.
+  "hostRequirements": {
+    "cpus": 16,
+    "memory": "32gb",
+    "storage": "32gb"
   },
-  "postCreateCommand": "mvn -q -B -DskipTests dependency:go-offline",
+
+  // Prefer the Maven Wrapper; fall back to apt-installing Maven, then warm the local repo.
+  "postCreateCommand": "([ -x ./mvnw ] && ./mvnw -q -B -DskipTests dependency:go-offline) || (sudo apt-get update && sudo apt-get install -y maven && mvn -q -B -DskipTests dependency:go-offline)",
+
   "customizations": {
-    "vscode": { "extensions": ["vscjava.vscode-java-pack"] }
+    "vscode": {
+      "extensions": ["vscjava.vscode-java-pack"]
+    },
+    "codespaces": {
+      "openFiles": ["README.md", "src/test/java/examples/hello.feature"]
+    }
   }
 }
