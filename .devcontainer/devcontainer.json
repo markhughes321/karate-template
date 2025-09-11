@@ -15,10 +15,10 @@
 
   "customizations": {
     "vscode": {
-      "extensions": ["vscjava.vscode-java-pack"]
+      "extensions": ["vscjava.vscode-java-pack", "karatelabs.karate"]
     },
     "codespaces": {
-      "openFiles": ["README.md", "src/test/java/examples/hello.feature"]
+      "openFiles": ["src/test/java/examples/users/users.feature"]
     }
   }
 }
