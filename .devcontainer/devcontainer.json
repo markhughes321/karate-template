@@ -2,30 +2,20 @@
   "name": "Karate (Java 17 + Maven)",
   "image": "mcr.microsoft.com/devcontainers/java:17-bullseye",
 
-  // Ask Codespaces for a 16-core machine by default.
-  "hostRequirements": {
-    "cpus": 16,
-    "memory": "32gb",
-    "storage": "32gb"
-  },
+  "hostRequirements": { "cpus": 16, "memory": "32gb", "storage": "32gb" },
 
   // Prefer Maven Wrapper; otherwise install Maven and warm the repo.
   "postCreateCommand": "([ -x ./mvnw ] && ./mvnw -q -B -DskipTests dependency:go-offline) || (sudo apt-get update && sudo apt-get install -y maven && mvn -q -B -DskipTests dependency:go-offline)",
 
-  // Forward Live Preview’s default port so Codespaces opens it cleanly.
-  "forwardPorts": [3000],
-  "portsAttributes": {
-    "3000": { "label": "Live Preview", "onAutoForward": "openBrowser" }
-  },
-
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-vscode.live-server",      // Microsoft Live Preview
+        "ms-vscode.live-server",   // Microsoft Live Preview
         "vscjava.vscode-java-pack",
         "karatelabs.karate"
       ],
       "settings": {
+        // Open the Karate report when you start Live Preview
         "livePreview.serverRoot": "target/karate-reports",
         "livePreview.defaultPreviewPath": "/karate-summary.html",
         "livePreview.openPreviewTarget": "externalBrowser"
